@@ -11,7 +11,30 @@ public class UserServiceImpl extends Util implements UserService {
 
     Connection connection = getConnection();
     public void createUsersTable() {
-
+        PreparedStatement preparedStatement = null;
+        String sql = "create table users (id int PRIMARY KEY AUTO_INCREMENT, name varchar(20), lastname varchar (20), age TINYINT)";
+        System.out.println("Table has been created...");
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public void dropUsersTable() {
@@ -23,6 +46,21 @@ public class UserServiceImpl extends Util implements UserService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

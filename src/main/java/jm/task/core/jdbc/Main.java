@@ -14,7 +14,7 @@ public class Main {
         util.getConnection();
 
         UserServiceImpl usi = new UserServiceImpl();
-        usi.dropUsersTable();
+        usi.saveUser("Aleks", "Gerasimov", (byte) 44);
 
 
 
