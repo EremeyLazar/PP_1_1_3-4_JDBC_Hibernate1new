@@ -14,7 +14,7 @@ public class Main {
         util.getConnection();
 
         UserServiceImpl usi = new UserServiceImpl();
-        usi.removeUserById(3);
+        usi.cleanUsersTable();
 
 
 

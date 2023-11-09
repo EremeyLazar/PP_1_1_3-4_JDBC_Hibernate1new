@@ -125,6 +125,15 @@ public class UserServiceImpl extends Util implements UserService {
     }
 
     public void cleanUsersTable() {
+        PreparedStatement preparedStatement = null;
+        String sql = "delete from users where id>0";
+        System.out.println("All lines have been deleted...");
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
