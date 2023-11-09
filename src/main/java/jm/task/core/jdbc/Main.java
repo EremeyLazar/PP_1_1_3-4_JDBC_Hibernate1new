@@ -1,5 +1,6 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.Connection;
@@ -11,6 +12,10 @@ public class Main {
         // реализуйте алгоритм здесь
         Util util = new Util ();
         util.getConnection();
+
+        UserServiceImpl usi = new UserServiceImpl();
+        System.out.println(usi.getAllUsers());
+
 
         }
     }

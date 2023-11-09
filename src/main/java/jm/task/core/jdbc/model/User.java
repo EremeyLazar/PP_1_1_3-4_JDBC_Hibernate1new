@@ -66,6 +66,6 @@ public class User {
                 "id = " + id +
                 ", name = '" + name + '\'' +
                 ", lastName = '" + lastName + '\'' +
-                ", age = " + age;
+                ", age = " + age + "\n";
     }
 }
