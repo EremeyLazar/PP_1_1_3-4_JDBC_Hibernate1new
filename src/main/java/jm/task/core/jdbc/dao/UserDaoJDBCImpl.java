@@ -19,7 +19,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void createUsersTable() {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = null;
-        String sql = "create table users (id int PRIMARY KEY AUTO_INCREMENT, name varchar(20), lastname varchar (20), age TINYINT)";
+        String sql = "create table if not Exists users (id int PRIMARY KEY AUTO_INCREMENT, name varchar(20), lastname varchar (20), age TINYINT)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void dropUsersTable() {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = null;
-        String sql = "drop table users";
+        String sql = "drop table if exists users";
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
