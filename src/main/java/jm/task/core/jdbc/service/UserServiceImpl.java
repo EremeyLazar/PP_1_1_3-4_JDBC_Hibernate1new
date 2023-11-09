@@ -15,7 +15,15 @@ public class UserServiceImpl extends Util implements UserService {
     }
 
     public void dropUsersTable() {
-
+        PreparedStatement preparedStatement = null;
+        String sql = "drop table users";
+        System.out.println("Table droped...");
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveUser(String name, String lastName, byte age) {
