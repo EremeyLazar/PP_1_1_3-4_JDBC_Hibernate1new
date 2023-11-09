@@ -9,12 +9,26 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main (String[] args) {
-        // реализуйте алгоритм здесь
+
         Util util = new Util ();
         util.getConnection();
 
         UserServiceImpl usi = new UserServiceImpl();
-        usi.saveUser("Aleks", "Gerasimov", (byte) 44);
+
+        usi.createUsersTable();
+
+        usi.saveUser("Volfgang", "Ivanov", (byte) 114);
+        usi.saveUser("Muhammad", "Valkenshtein", (byte) 18);
+        usi.saveUser("Vasilij", "Lordkipanidze", (byte) 44);
+        usi.saveUser("Sergo", "Bezimjannij", (byte) 23);
+
+        System.out.println(usi.getAllUsers());
+
+        usi.cleanUsersTable();
+
+        usi.dropUsersTable();
+
+
 
 
 

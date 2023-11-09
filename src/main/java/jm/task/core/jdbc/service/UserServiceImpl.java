@@ -1,185 +1,45 @@
 package jm.task.core.jdbc.service;
 
+import com.mysql.cj.jdbc.ClientPreparedStatement;
+import com.mysql.cj.jdbc.exceptions.SQLError;
+import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.hql.internal.antlr.SqlGeneratorBase;
+import org.hibernate.hql.internal.ast.SqlGenerator;
+import org.hibernate.tool.schema.ast.SqlScriptParserException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UserServiceImpl extends Util implements UserService {
 
     Connection connection = getConnection();
+    UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
     public void createUsersTable() {
-        PreparedStatement preparedStatement = null;
-        String sql = "create table users (id int PRIMARY KEY AUTO_INCREMENT, name varchar(20), lastname varchar (20), age TINYINT)";
-        System.out.println("Table has been created...");
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+     userDaoJDBC.createUsersTable();
     }
 
     public void dropUsersTable() {
-        PreparedStatement preparedStatement = null;
-        String sql = "drop table users";
-        System.out.println("Table droped...");
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+       userDaoJDBC.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        PreparedStatement preparedStatement = null;
-
-        String sql = "insert into users (name, lastname, age) values (?, ?, ?)";
-
-        try {
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, name);
-        preparedStatement.setString(2, lastName);
-        preparedStatement.setByte(3, age);
-
-        preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-        e.printStackTrace();
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-
-    }
+        userDaoJDBC.saveUser(name, lastName, age);
+          }
 
     public void removeUserById(long id) {
-        PreparedStatement preparedStatement = null;
-
-        String sql = "Delete from users where id=?";
-
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
-
-    } }}
+        userDaoJDBC.removeUserById(id);
+    }
 
     public List<User> getAllUsers() {
-        List <User> usersList = new ArrayList<>();
-
-        String sql = "SELECT ID, NAME, LASTNAME, AGE FROM USERS";
-        Statement statement = null;
-
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-
-
-        while (resultSet.next()) {
-            User user = new User();
-            user.setId(resultSet.getLong("ID"));
-            user.setName(resultSet.getString("NAME"));
-            user.setLastName(resultSet.getString("LASTNAME"));
-            user.setAge((byte) resultSet.getInt("AGE"));
-
-            usersList.add(user);
-
-        }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if ( connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return usersList;
+       return userDaoJDBC.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        PreparedStatement preparedStatement = null;
-        String sql = "delete from users where id>0";
-        System.out.println("All lines have been deleted...");
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        userDaoJDBC.cleanUsersTable();
     }
 }
