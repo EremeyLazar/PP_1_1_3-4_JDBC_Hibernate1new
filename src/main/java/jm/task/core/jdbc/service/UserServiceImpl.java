@@ -53,8 +53,34 @@ public class UserServiceImpl extends Util implements UserService {
     }
 
     public void removeUserById(long id) {
+        PreparedStatement preparedStatement = null;
 
-    }
+        String sql = "Delete from users where id=?";
+
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+    } }}
 
     public List<User> getAllUsers() {
         List <User> usersList = new ArrayList<>();

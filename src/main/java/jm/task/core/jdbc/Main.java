@@ -14,9 +14,13 @@ public class Main {
         util.getConnection();
 
         UserServiceImpl usi = new UserServiceImpl();
-        System.out.println(usi.getAllUsers());
+        usi.removeUserById(3);
+
+
 
 
         }
     }
+
+
 
