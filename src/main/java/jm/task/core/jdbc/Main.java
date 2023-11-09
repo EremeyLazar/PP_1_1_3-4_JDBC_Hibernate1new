@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
-        Util util = new Util ();
+        Util util = new Util();
         util.getConnection();
 
         UserServiceImpl usi = new UserServiceImpl();
@@ -29,12 +29,8 @@ public class Main {
         usi.dropUsersTable();
 
 
-
-
-
-
-        }
     }
+}
 
 
 

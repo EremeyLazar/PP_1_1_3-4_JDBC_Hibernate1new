@@ -10,12 +10,12 @@ public class Util {
     final String DB_USERNAME = "root";
     final String DB_PASSWORD = "Ьнакуувщь1001011";
 
-    public Connection getConnection () {
+    public Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
-        } catch (SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Connection Error");
         }
