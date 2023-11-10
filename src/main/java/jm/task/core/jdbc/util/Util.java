@@ -29,36 +29,32 @@ public class Util {
         }
         return connection;
     }
+    SessionFactory sessionFactory;
 
-    private static SessionFactory sessionFactory = new Configuration().buildSessionFactory();
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
+    public SessionFactory sessionFactory() {
+
             try {
                 Configuration configuration = new Configuration();
 
 
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/users");
+                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/users?useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow");
                 settings.put(Environment.USER, "root");
                 settings.put(Environment.PASS, "Ьнакуувщь1926");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-                settings.put(Environment.SHOW_SQL, "true");
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "");
+//                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+//                settings.put(Environment.SHOW_SQL, "true");
+//                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+//                settings.put(Environment.HBM2DDL_AUTO, "");
 
                 configuration.setProperties(settings);
-                configuration.addAnnotatedClass(User.class);
 
-                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties()).build();
+                sessionFactory = configuration.addAnnotatedClass(User.class).buildSessionFactory();
 
-                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return sessionFactory;
     }
 }
