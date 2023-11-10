@@ -33,7 +33,7 @@ public class Main {
 
 
         UserDaoHibernateImpl userNew = new UserDaoHibernateImpl();
-        userNew.saveUser("Ramesh", "Fadatare", (byte) 4);
+        userNew.saveUser("Aleksaey", "Smirnoff", (byte) 39);
 
     }
 }

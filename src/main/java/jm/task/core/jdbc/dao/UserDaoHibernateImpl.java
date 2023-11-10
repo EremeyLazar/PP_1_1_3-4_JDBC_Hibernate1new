@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
 
-
+    SessionFactory sessionFactory = new Util().getSessionFactory();
 
 
     public UserDaoHibernateImpl() {
@@ -33,7 +33,6 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         User user = new User(name, lastName, age);
-        SessionFactory sessionFactory = new Util().getSessionFactory();
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             session.save(user);
