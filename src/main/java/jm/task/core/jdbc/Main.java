@@ -17,6 +17,7 @@ public class Main {
         us.saveUser("Sergo", "Bezimjannij", (byte) 23);
 
         System.out.println(us.getAllUsers());
+        us.removeUserById(1);
 
         us.cleanUsersTable();
 
@@ -24,6 +25,7 @@ public class Main {
 
 
     }
+
 }
 
 
