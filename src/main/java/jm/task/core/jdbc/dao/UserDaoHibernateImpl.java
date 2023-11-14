@@ -15,17 +15,15 @@ public class UserDaoHibernateImpl implements UserDao {
     private final SessionFactory sessionFactory = new Util().getSessionFactory();
 
     private <T> T todo(final Function<Session, T> command) {
-        final Session session = sessionFactory.openSession();
-        final Transaction transaction = session.beginTransaction();
-        try {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
             T act = command.apply(session);
             transaction.commit();
             return act;
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            transaction.rollback();
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return null;
     }
